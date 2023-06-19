@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <!-- <div class="contents"></div>
+    <link rel="stylesheet" href="list_css.css"> -->
+
+    <link rel="stylesheet" href="/data/0cp/list_css.css">
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    
+
+    <script>
+        //개별 Tab item list
+        function show_data(cat_name) {
+            var url = "/data/0cp/list_html.html"
+            var url = "list_html.html"
+            axios
+                .get(url)
+                .then(function (result) {
+                    //get_data from web API
+                    var my_str = result.data;
+                    my_str = my_str.split("],");
+                    console.log(my_str)
+                    for (var i = 0; i < my_str.length; i++) {
+                        my_str[i] = my_str[i].split("',");
+                        for (var j = 0; j < my_str[i].length; j++) {
+                            my_str[i][j] = my_str[i][j].replaceAll("'", "").replaceAll("[", "").replaceAll("]", "").trim();
+                        }
+                    }
+                    var tableData = my_str
+                    console.log(tableData);
+
+
+
+                    //기존 list 제거
+                    var rmv = document.getElementById("tabs-x");
+                    if (rmv) rmv.parentNode.removeChild(rmv);
+
+                    //<div id="tabs-1" aria-labelledby="ui-id-1" class="ui-tabs-panel ui-widget-content ui-corner-bottom" role="tabpanel" aria-expanded="false" aria-hidden="true" style="display: none;">
+                    var tab_x_start = document.createElement("div");
+                    tab_x_start.setAttribute("id", "tabs-x");
+                    tab_x_start.setAttribute("aria-labelledby", "ui-id-x");
+                    tab_x_start.setAttribute("class", "ui-tabs-panel ui-widget-content ui-corner-bottom");
+                    tab_x_start.setAttribute("role", "tabpanel");
+                    tab_x_start.setAttribute("aria-expanded", "false");
+                    tab_x_start.setAttribute("aria-hidden", "true");
+                    tab_x_start.setAttribute("style", "display: block;");
+                    Tabs1.appendChild(tab_x_start);
+
+                    //카테고리명 Remark
+                    var cat_name_Remark = document.createComment(cat_name);
+                    tab_x_start.appendChild(cat_name_Remark)
+
+                    //<div class="wrapper_col5">
+                    var wrapper_col5 = document.createElement("div");
+                    wrapper_col5.setAttribute("class", "wrapper_col5");
+                    tab_x_start.appendChild(wrapper_col5)
+
+
+                    //make list with For
+                    //make list with For
+                    //make list with For
+                    //make list with For
+                    //make list with For
+                    //make list with For
+                    //make list with For
+                    //make list with For
+                    for (var i = 0; i < tableData.length; i++) {
+                        //<div class="item_card">
+                        var item_card = document.createElement("div");
+                        item_card.setAttribute("class", "item_card");
+                        wrapper_col5.appendChild(item_card);
+
+                        //<a href="https://link.coupang.com/a/KTLW6" target="_blank">
+                        var item_url = document.createElement("a");
+                        item_url.setAttribute("href", `${tableData[i][0]}`);
+                        item_url.setAttribute("target", "_black");
+                        item_card.appendChild(item_url);
+
+                        //<img src="https://thumbnail7.coupangcdn.com/thumbnails/remote/230x230ex/image/vendor_inventory/0e89/709623a0307e3bea735809fcd9599b89994fe6d26589bcc4fba81d508e04.JPG">
+                        var item_img = document.createElement("img");
+                        item_img.setAttribute("src", `${tableData[i][1]}`)
+                        item_url.appendChild(item_img);
+
+                        //<p>[SINCE1971]쇠고기집 1등급 명품 소고기 선물세트</p>
+                        var item_title = document.createElement("p");
+                        item_title.appendChild(document.createTextNode(tableData[i][2]));
+                        item_url.appendChild(item_title);
+
+                        //<div class="price_area">
+                        var price_area = document.createElement("div");
+                        price_area.setAttribute("class", "price_area");
+                        item_url.appendChild(price_area);
+
+                        //<span class="discount_per">41%</span>
+                        var discount_per = document.createElement("span");
+                        discount_per.setAttribute("class", "discount_per");
+                        if (tableData[i][3] == none) {
+                            discount_per.appendChild(document.createTextNode(tableData[i][3]));
+                        }
+                        discount_per.appendChild(document.createTextNode(tableData[i][3]));
+                        price_area.appendChild(discount_per);
+
+                        //<span class="price">99,900</span>
+                        var price = document.createElement("span");
+                        price.setAttribute("class", "price");
+                        price.appendChild(document.createTextNode(tableData[i][5]));
+                        price_area.appendChild(price);
+
+                        //<span class="price_del">170,000</span>
+                        var price_del = document.createElement("span");
+                        price_del.setAttribute("class", "price_del");
+                        price_del.appendChild(document.createTextNode(tableData[i][4]));
+                        price_area.appendChild(price_del);
+
+                        //<div class="btn_buy">구매하러 가기</div>
+                        var btn_buy = document.createElement("div");
+                        btn_buy.setAttribute("class", "btn_buy");
+                        btn_buy.appendChild(document.createTextNode("구매하러 가기"));
+                        item_url.appendChild(btn_buy);
+                    //make list with For
+                    //make list with For
+                    //make list with For
+                    //make list with For
+                    //make list with For
+                    //make list with For
+                    //make list with For
+                    //make list with For
+                    //make list with For
+                    }
+
+
+                    //<div class="event_wrapper">
+                    var event_wrapper = document.createElement("div");
+                    event_wrapper.getAnimations("class","event_wrapper");
+                    contents.appendChild(event_wrapper);
+
+                    //<div>
+                    var div = document.createElement("div");
+                    event_wrapper.appendChild("div");
+
+                    //<img src="https://dfgagu.hgodo.com/event/dfmall/d_mart/info.jpg" alt="파트너스 인포">
+                    var img_info = document.createElement("img");
+                    img_info.setAttribute("src","https://dfgagu.hgodo.com/event/dfmall/d_mart/info.jpg");
+                    img_info.setAttribute("alt","파트너스 인포")
+                });
+        }
+
+
+        //카테고리 리스트
+        function main_header() {
+
+            //get class="contents"
+            var contents = document.getElementsByClassName("contents")[0];
+
+            //<!-- 제품리스트 -->
+            var style_top = document.createComment("제품리스트");
+            contents.append(style_top);
+
+            //<div class="event_wrapper" style="background:#fff;">
+            var event_wrapper = document.createElement("div");
+            event_wrapper.setAttribute("class", "event_wrapper");
+            event_wrapper.setAttribute("style", "background:#fff;");
+            contents.appendChild(event_wrapper);
+
+            //<div class="event_contents">
+            var event_contents = document.createElement("div");
+            event_contents.setAttribute("class", "event_contents");
+            event_wrapper.appendChild(event_contents);
+
+            //카테고리s
+            var cat_array = ["명절 선물세트", "프리마켓 베스트"];
+            var cat_to_string = String(cat_array);
+            var cat_array_show = document.createComment(cat_to_string)
+            event_contents.appendChild(cat_array_show);
+
+            //<div id="Tabs1" class="tab_style_eventList cboth ui-tabs ui-widget ui-widget-content ui-corner-all">
+            var Tabs1 = document.createElement("div");
+            Tabs1.setAttribute("id", "Tabs1");
+            Tabs1.setAttribute("class", "tab_style_eventList cboth ui-tabs ui-widget ui-widget-content ui-corner-all");
+            event_contents.appendChild(Tabs1);
+
+            //<ul class="event_menu ui-tabs-nav ui-helper-reset ui-helper-clearfix ui-widget-header ui-corner-all" role="tablist">
+            var ul_tablist = document.createElement("ul");
+            ul_tablist.setAttribute("class", "event_menu ui-tabs-nav ui-helper-reset ui-helper-clearfix ui-widget-header ui-corner-all");
+            ul_tablist.setAttribute("role", "tablist");
+            Tabs1.appendChild(ul_tablist);
+
+
+
+
+            //<li> 카테고리 헤더 for 문
+            for (var i = 0; i < cat_array.length; i++) {
+                //<li class="ui-state-default ui-corner-top" role="tab" tabindex="-1" aria-controls="tabs-1" aria-labelledby="ui-id-1" aria-selected="false">
+                var li_tabs_x = document.createElement("li");
+                li_tabs_x.setAttribute("class", "ui-state-default ui-corner-top");
+                li_tabs_x.setAttribute("onclick", `show_data("${cat_array[i]}")`);
+                li_tabs_x.setAttribute("role", "tab");
+                li_tabs_x.setAttribute("style", "cursor:pointer");
+                li_tabs_x.setAttribute("tabindex", "-1");
+                li_tabs_x.setAttribute("aria-controls", `tabs-${i}`);
+                li_tabs_x.setAttribute("aria-labelledby", `ui-id-${i}`);
+                li_tabs_x.setAttribute("aria-selected", "false");
+                ul_tablist.appendChild(li_tabs_x);
+
+                // /<a href="#tabs-1" class="ui-tabs-anchor" role="presentation" tabindex="-1" id="ui-id-1">명절 선물세트</a>
+                var a_tabs_x = document.createElement("a");
+                a_tabs_x.setAttribute("class","ui-tabs-anchor");
+                a_tabs_x.setAttribute("role","presentation");
+                a_tabs_x.setAttribute("tabindex","-1");
+                a_tabs_x.setAttribute("id",`ui-id-${i}`);
+                a_tabs_x.appendChild(document.createTextNode(cat_array[i]));
+                li_tabs_x.appendChild(a_tabs_x);
+                
+            }
+        }
+
+        //main
+        main_header();
+    </script>
+</body>
+
+</html>

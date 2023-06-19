@@ -1,0 +1,73 @@
+.goods_event_sale {
+    width: auto;
+}
+
+.goods_list {
+    border-bottom: 1px solid #eee;
+}
+
+.goods_list h3 {
+    width: 1280px;
+    margin: 0 auto;
+    color: white;
+}
+
+._goods_display_main h3 {
+    color: white;
+}
+
+.sp_slider {
+    padding-top: 375px;
+}
+
+.sp_slider div {
+    background-color: transparent;
+}
+
+.slick-dots {
+    bottom: 0;
+}
+
+.slick-dots li {
+    border: 2px solid #B5ACA9;
+    border-radius: 50%;
+}
+
+.slick-dots li.slick-active {
+    background-color: #B5ACA9;
+}
+
+.slick-dots li button {
+    padding: 4px;
+}
+
+.jbMenu {
+    z-index: 99;
+    display: block;
+    width: 100%;
+}
+
+.fixed {
+    z-index: 99;
+    ;
+    position: fixed;
+    top: 80px;
+}
+
+.goods_event_sale_cont .review_slider img {
+    width: auto;
+}
+
+.review_slider .swiper-slide {
+    width: auto;
+}
+
+.review_slider {
+    padding: 20px 0;
+}
+
+/*
+.wrapper_col4>div{
+    margin-right: 4px;
+}
+*/

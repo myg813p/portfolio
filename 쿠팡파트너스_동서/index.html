@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>동서가구 브랜드 판매</title>
+    <link href="index9.css" rel="stylesheet" type="text/css" />
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
+</head>
+<script>
+    async function f1() {
+        var url = "fn_list.csv"
+        axios
+            .get(url)
+            .then(function (result) {
+                var my_str = result.data;
+                var tableData = my_str.split('\n')
+                tableData.pop();
+                tableData.pop();
+
+                var sum_data = new Array;
+                var sum_head = ['클릭\u00a0\u00a0', '구매\u00a0', '매출\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0', '순익\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0', '전환율\u00a0\u00a0\u00a0']
+                var click_all = 0;
+                var get_all = 0;
+                var price_all = 0;
+                var margin_all = 0;
+                var conver_rate = 0;
+
+                var charts_data_1 = new Array;
+                var charts_data_2 = new Array;
+                var charts_data_3 = new Array;
+                var charts_data_4 = new Array;
+
+                for (var i = 0; i < tableData.length; i++) {
+                    tableData[i] = tableData[i].replace("\r", "").split(",");
+                    year = Number(tableData[i][0].substring(0, 4));
+                    month = ("00" + Number(tableData[i][0].substring(4, 6))).slice(-2) - 1;
+                    day = ("00" + Number(tableData[i][0].substring(6, 8))).slice(-2);
+
+                    charts_data_1.push({ x: new Date(year, month, day), y: Number(tableData[i][1]) });
+                    charts_data_2.push({ x: new Date(year, month, day), y: Number(tableData[i][2]) });
+                    charts_data_3.push({ x: new Date(year, month, day), y: Number(tableData[i][3]) });
+                    charts_data_4.push({ x: new Date(year, month, day), y: Number(tableData[i][4]) });
+
+                    click_all += Number(tableData[i][1]);
+                    get_all += Number(tableData[i][2]);
+                    price_all += Number(tableData[i][3]);
+                    margin_all += Number(tableData[i][4]);
+
+                    //console.log(year)
+                    //console.log(month)
+                    //console.log(day)
+
+                }
+                console.log(tableData)
+                // console.log(charts_data_1)
+                // console.log(charts_data_2)
+                // console.log(charts_data_3)
+                // console.log(charts_data_4)
+
+                conver_rate = (get_all / click_all * 100).toFixed(2);
+                click_all = click_all.toLocaleString('ko-KR')
+                get_all = get_all.toLocaleString('ko-KR')
+                price_all = price_all.toLocaleString('ko-KR')
+                margin_all = margin_all.toLocaleString('ko-KR')
+                sum_data.push(click_all);
+                sum_data.push(get_all);
+                sum_data.push("￦" + price_all);
+                sum_data.push("￦" + margin_all);
+                sum_data.push(conver_rate + "%");
+                // console.log(click_all)
+                // console.log(get_all)
+                // console.log(price_all)
+                // console.log(margin_all)
+
+
+
+
+                //summary
+                //summary
+                //summary
+                //summary
+                //<br>
+                var br = document.createElement('br');
+                document.body.appendChild(br)
+
+                //<table>
+                var table = document.createElement('table');
+                table.setAttribute("class", "top_table");
+                document.body.appendChild(table);
+
+                //<thead>
+                var thead = document.createElement('thead');
+                table.appendChild(thead);
+
+                //<tr>
+                var tr = document.createElement('tr');
+                thead.appendChild(tr);
+
+                for (var i = 0; i < sum_head.length; i++) {
+                    //<th>
+                    var th = document.createElement('th');
+                    th.setAttribute("style", "font-family: 맑은 고딕; color: #C0C0C0; font-size: 12px");
+                    th.appendChild(document.createTextNode(sum_head[i]));
+                    tr.appendChild(th);
+                }
+
+                //<tbody>
+                var tbody = document.createElement('tbody');
+                table.appendChild(tbody);
+
+                //<tr>
+                var tr = document.createElement('tr');
+                tbody.appendChild(tr);
+
+                for (var i = 0; i < sum_data.length; i++) {
+                    //<th>
+                    var th = document.createElement('th');
+                    th.setAttribute("style", "font-family: 맑은 고딕; color: #404040; font-size: 15px");
+                    th.appendChild(document.createTextNode(sum_data[i]));
+                    tr.appendChild(th);
+                }
+                //<br>
+                var br = document.createElement('br');
+                document.body.appendChild(br)
+
+
+
+
+                //chart
+                //chart
+                //chart
+                //chart
+                var chart = document.createElement('div');
+                chart.setAttribute("id", "chartContainer");
+                chart.setAttribute("style", "height: 370px; width: 100%;");
+                document.body.appendChild(chart);
+
+                var chart = new CanvasJS.Chart("chartContainer", {
+                    // title: {
+                    //     text: "쿠팡파트너스 월간 보고서",
+                    //     //fontFamily: "arial black",
+                    //     fontColor: "#404040",
+                    //     fontSize: 20,
+                    //     fontWeight : "bold"
+                    // },
+                    subtitles: [{
+                        text: tableData[0][0].substring(2, 4) + "." +tableData[0][0].substring(4, 6)  + "." +tableData[0][0].substring(6, 8) + " ~ " + tableData[tableData.length-1][0].substring(2, 4) + "." +tableData[tableData.length-1][0].substring(4, 6)  + "." +tableData[tableData.length-1][0].substring(6, 8),
+                        fontFamily: "arial black",
+                        fontColor: "#3333FF",
+                    }],
+                    axisX: {
+                        interval: 1,
+                        //valueFormatString: "YY.MM.DD",
+                        valueFormatString: "MM.DD",
+                        labelFontSize: 12,
+                        labelFontColor : "#3333FF",
+                        labelFontWeight : "bold"
+                    },
+                    // axisY: [{
+                    //     title: "클릭",
+                    //     lineColor: "#C24642",
+                    //     tickColor: "#C24642",
+                    //     labelFontColor: "#C24642",
+                    //     titleFontColor: "#C24642",
+                    //     includeZero: true,
+                    //     //suffix: "k"
+                    // },
+                    // {
+                    //     title: "매출",
+                    //     lineColor: "#369EAD",
+                    //     tickColor: "#369EAD",
+                    //     labelFontColor: "#369EAD",
+                    //     titleFontColor: "#369EAD",
+                    //     includeZero: true,
+                    //     //suffix: "k"
+                    // }],
+                    // axisY2: {
+                    //     title: "매출",
+                    //     lineColor: "#7F6084",
+                    //     tickColor: "#7F6084",
+                    //     labelFontColor: "#7F6084",
+                    //     titleFontColor: "#7F6084",
+                    //     includeZero: true,
+                    //     prefix: "$",
+                    //     suffix: "k"
+                    // },
+                    toolTip: {
+                        shared: true
+                    },
+                    legend: {
+                        cursor: "pointer",
+                        itemclick: toggleDataSeries
+                    },
+                    data: [
+                    {
+                        type: "column",
+                        name: "매출",
+                        color: "#FF3333",
+                        axisYIndex: 0,
+                        showInLegend: true,
+                        dataPoints: charts_data_3
+                    },
+                    {
+                        type: "column",
+                        name: "순익",
+                        color: "#009900",
+                        showInLegend: true,
+                        axisYIndex: 1,
+                        dataPoints: charts_data_4
+                    },
+                    {
+                        type: "line",
+                        name: "구매",
+                        color: "#606060",
+                        axisYType: "secondary",
+                        showInLegend: true,
+                        dataPoints: charts_data_2
+                    },
+                    {
+                        type: "line",
+                        name: "클릭",
+                        color: "#C0C0C0",
+                        axisYType: "secondary",
+                        showInLegend: true,
+                        dataPoints: charts_data_1
+                    }]
+                });
+                chart.render();
+
+                function toggleDataSeries(e) {
+                    if (typeof (e.dataSeries.visible) === "undefined" || e.dataSeries.visible) {
+                        e.dataSeries.visible = false;
+                    } else {
+                        e.dataSeries.visible = true;
+                    }
+                    e.chart.render();
+                }
+                var br = document.createElement('br');
+                document.body.appendChild(br)
+            });
+        }
+
+    async function f2() {
+
+        //table
+        //table
+        //table
+        //table
+        var url = "title_list.csv"
+        axios
+            .get(url)
+            .then(function (result) {
+                var my_str = result.data;
+                var tableData = my_str.split('\n')
+                tableData.pop();
+
+                for (var i = 0; i < tableData.length; i++) {
+                    tableData[i] = tableData[i].replace("\r", "").split(",");
+                }
+                tableData = tableData.reverse();
+                //console.log(tableData);
+
+                //<table>
+                var table = document.createElement('table');
+                table.setAttribute("id", "myTable");
+                table.setAttribute("border", "0");
+                table.setAttribute("cellspacing", "0");
+                table.setAttribute("width", "900");
+                document.body.appendChild(table);
+
+                //<tbody>
+                var tbody = document.createElement('tbody');
+                table.appendChild(tbody);
+
+                for (var i = 0; i < tableData.length; i++) {
+                    //<tr> id=tr_list
+                    var tr = document.createElement('tr');
+                    tr.setAttribute("id", "myList");
+                    tr.setAttribute("align", "center");
+                    tr.setAttribute("style", "word-break: break-all");
+                    tr.setAttribute("valign", "middle");
+                    tbody.appendChild(tr);
+
+                    //<td>
+                    var td = document.createElement('td');
+                    td.setAttribute("align", "left");
+                    tr.appendChild(td);
+
+                    //<td>_title
+                    var td_title = document.createElement('td');
+                    td_title.setAttribute("valign", "middle")
+                    td.appendChild(td_title)
+
+                    //<div>_title
+                    var div_title = document.createElement('div');
+                    div_title.setAttribute("style", "inline-block;line-height:1.6;vertical-align:middle;line-height:1;")
+                    td_title.appendChild(div_title);
+
+                    //<span>_date
+                    var span_cpy = document.createElement('span');
+                    span_cpy.setAttribute("class", "cpy");
+                    span_cpy.setAttribute("style", "inline-block;line-height:1.6;vertical-align:middle;line-height:1;color:#3333FF;font-size:12px;font-weight: bolder;");
+                    year = tableData[i][0].substring(2, 4)
+                    month = tableData[i][0].substring(4, 6)
+                    day = tableData[i][0].substring(6, 8)
+                    date = year + "." + month + "." + day
+                    span_cpy.appendChild(document.createTextNode(date + "\u00a0"));
+                    div_title.appendChild(span_cpy);
+
+                    //<a>_title
+                    var a_title = document.createElement('a');
+                    temp_href = `https://www.coupang.com/np/search?component=&q=${tableData[i][1]}&channel=user`
+                    a_title.setAttribute("href", temp_href);
+                    a_title.setAttribute("target", "_blank");
+                    a_title.setAttribute("style", "text-decoration-line: none;inline-block;line-height:1.6;vertical-align:middle;line-height:1;color:#3D5656;font-size:12px;");
+                    a_title.setAttribute("class", "list_title");
+                    a_title.appendChild(document.createTextNode(tableData[i][1] + "\u00a0"));
+                    div_title.appendChild(a_title);
+
+                    //<span>_EA
+                    var span_EA = document.createElement('span');
+                    span_EA.setAttribute("class", "span_EA");
+                    span_EA.appendChild(document.createTextNode(tableData[i][2]));
+                    div_title.appendChild(span_EA);
+
+                    //<br>
+                    var br = document.createElement('br');
+                    div_title.appendChild(br)
+
+                    //<span>_price_매출
+                    var span_price = document.createElement('span');
+                    span_price.setAttribute("class", "price");
+                    span_price.setAttribute("style", "inline-block;line-height:1.6;vertical-align:middle;line-height:1;color:#FF3333;font-size:11px;");
+                    span_price.appendChild(document.createTextNode("매출: " + Number(tableData[i][3]).toLocaleString() + "원"));
+                    div_title.appendChild(span_price);
+
+                    //<br>
+                    var br = document.createElement('br');
+                    div_title.appendChild(br)
+
+                    //<span>_price_순익
+                    var span_price = document.createElement('span');
+                    span_price.setAttribute("class", "price");
+                    span_price.setAttribute("style", "inline-block;line-height:1.6;vertical-align:middle;line-height:1;color:#009900;font-size:11px;");
+                    span_price.appendChild(document.createTextNode("순익: " + Number(tableData[i][5]).toLocaleString() + "원"));
+                    div_title.appendChild(span_price);
+                }
+            });
+        }
+        f1().then(() => f2())
+</script>
+</body>
+
+</html>
