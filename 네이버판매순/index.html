@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    button {
+      margin: 1px;
+      padding: 3px 10px;
+      font-size: 16px;
+      background-color: #535d96;
+      color: white;
+      border: none;
+      border-radius: px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #0004ff;
+    }
+
+    #card-container {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      margin: 0 -10px;
+    }
+
+    .card {
+      flex-basis: calc(16.667% - 20px);
+      margin: 10px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    .card:hover {
+      box-shadow: 0 4px 8px rgba(51, 38, 38, 0.2);
+    }
+
+    .card-img {
+      position: relative;
+    }
+
+    .card-img img {
+      display: block;
+      width: 100%;
+      height: auto;
+    }
+
+    .card-content {
+      padding: 10px;
+    }
+
+    .card-title {
+      margin: 0;
+      font-size: 14px;
+      font-weight: 600;
+      line-height: 1.2;
+    }
+
+    .card-price {
+      margin: 10px 0;
+      font-size: 14px;
+    }
+
+    .card-purchase-cnt {
+      margin: 10px 0;
+      font-size: 14px;
+      color: red;
+    }
+
+    .card-button {
+      background-color: #4CAF50;
+      border: none;
+      border-radius: 4px;
+      color: #fff;
+      cursor: pointer;
+      font-size: 16px;
+      font-weight: 600;
+      padding: 10px 20px;
+      text-align: center;
+      text-decoration: none;
+      transition: background-color 0.3s ease;
+    }
+
+    .card-button:hover {
+      background-color: #3e8e41;
+    }
+
+    @media screen and (max-width: 768px) {
+      #card-container {
+        flex-direction: column;
+      }
+      .card {
+        flex-basis: 100%;
+        margin: 10px 0;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div id="upTodate">수집일 : 2023-06-19 (수집기간: 최근 2주)</div>
+  <div id="start_div"></div>
+  <div id="here_show">
+    <div id="card-container"></div>
+  </div>
+  <script>
+    fetch("list_name.txt")
+      .then((response) => response.text())
+      .then((data) => {
+        data = data.split('#');
+        data.pop();
+        // console.log(data);
+        // console.log(data.length);
+
+        //get start_div
+        var div = document.getElementById("start_div");
+        //
+        for (i = 0; i < data.length; i++) {
+          var button = document.createElement("button");
+          button.setAttribute("id", `${data[i]}`);
+          button.setAttribute("onclick", `my_function("${data[i]}")`);
+          button.innerText = data[i].split("_")[1]
+          div.appendChild(button);
+        }
+      })
+
+    function my_function(cat) {
+      console.log(cat)
+      fetch(`${cat}.json`)
+        .then((response) => response.json())
+        .then((data) => {
+
+          var rmv = document.getElementById("card-container");
+          if (rmv) rmv.parentNode.removeChild(rmv);
+
+          const products = data['data'];
+          console.log(products)
+
+          var here_show = document.getElementById("here_show");
+          var cardContainer = document.createElement('div')
+          cardContainer.setAttribute("id", "card-container");
+          here_show.appendChild(cardContainer)
+
+          products.forEach((product, index) => {
+            const card = document.createElement('div');
+            card.classList.add('card');
+
+            const cardImg = document.createElement('div');
+            cardImg.classList.add('card-img');
+
+            const cardButton = document.createElement('a');
+            cardButton.setAttribute('href', product.url);
+            cardButton.setAttribute('target', "_blank");
+            cardImg.appendChild(cardButton);
+
+            const img = document.createElement('img');
+            img.setAttribute('src', product.img);
+            cardButton.appendChild(img);
+
+            const cardContent = document.createElement('div');
+            cardContent.classList.add('card-content');
+
+            const cardRank = document.createElement('span');
+            cardRank.classList.add('card-rank');
+            cardRank.textContent = `${index+1}`;
+            cardRank.setAttribute('style', 'color:#2DB400;font-weight:bold;font-size:25px;')
+            cardContent.appendChild(cardRank);
+
+            const cardTitle = document.createElement('p');
+            cardTitle.classList.add('card-title');
+            cardTitle.textContent = product.title;
+            cardContent.appendChild(cardTitle);
+
+            const cardPrice = document.createElement('p');
+            cardPrice.classList.add('card-price');
+            console.log(product.price);
+            cardPrice.textContent = `Price: ${product.price.toLocaleString()}원`;
+            cardContent.appendChild(cardPrice);
+
+            const cardPurchaseCnt = document.createElement('p');
+            cardPurchaseCnt.classList.add('card-purchase-cnt');
+            if (product && product.purchaseCnt) {
+              cardPurchaseCnt.textContent = `Purchase Count: ${product.purchaseCnt.toLocaleString()}`;
+            } else {
+              cardPurchaseCnt.textContent = "Purchase Count: N/A";
+            }
+            cardContent.appendChild(cardPurchaseCnt);
+
+            card.appendChild(cardImg);
+            card.appendChild(cardContent);
+
+            cardContainer.appendChild(card);
+          })
+        })
+    }
+  </script>
+</body>
+
+</html>
