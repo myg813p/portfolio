@@ -1,0 +1,276 @@
+#btn_css {
+    height: 30px;
+    width: 295px;
+}
+
+#list_title {
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+    word-break: break-all;
+    text-align: left;
+    border-collapse: collapse;
+    border-spacing: 0;
+    line-height: 1.6;
+    color: #202020;
+    font-size: 12px;
+    text-decoration: none;
+    font-family: '굴림';
+}
+
+
+#show_date {
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+    color: #202020;
+    font-size: 12px;
+    font-family: '굴림';
+}
+
+.span_EA {
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+    word-break: break-all;
+    text-align: left;
+    border-collapse: collapse;
+    border-spacing: 0;
+    line-height: 1.6;
+    color: #404040;
+    background-color: #f0f0f0;
+    font-size: 11px;
+    font-family: 'tahoma', 'Gulim';
+    font-weight: bold;
+    padding: 0 3px 2px 0;
+}
+
+#myTable,
+#pop_myTable {
+    border-collapse: collapse;
+    /* Collapse borders */
+    width: 99%;
+    /* Full-width */
+    border: 1px solid #ddd;
+    /* Add a grey border */
+}
+
+
+#myTable th,
+#myTable td,
+#pop_myTable th,
+#pop_myTable td {
+    text-align: left;
+    /* Left-align text */
+}
+
+#myTable tr,
+#pop_myTable tr {
+    /* Add a bottom border to all table rows */
+    border-bottom: 1px solid #ddd;
+}
+
+#myTable tr.header,
+#myTable tr:hover,
+#top_myTable tr.header,
+#top_myTable tr:hover {
+    /* Add a grey background color to the table header and on hover */
+    background-color: #f1f1f1;
+}
+
+.header th {
+    position: sticky;
+    top: 0px;
+    background-color: gray !important;
+}
+
+
+
+
+
+.cards-list {
+    z-index: 0;
+    width: 100%;
+    display: flex;
+    justify-content: start;
+    flex-wrap: wrap;
+}
+
+.card {
+    margin-top: 20px;
+    margin-right: 5px;
+    margin-bottom: 20px;
+    margin-left: 5px;
+    width: 40px;
+    height: 35px;
+    border-radius: 3px;
+    box-shadow: 1px 1px 1px 1px rgba(0, 0, 0, 0.25), 0px 0px 0px 1px rgba(0, 0, 0, 0.22);
+    cursor: pointer;
+    transition: 0.4s;
+}
+
+.card .card_image {
+    width: inherit;
+    height: inherit;
+    border-radius: 10px;
+}
+
+.card .card_image img {
+    width: inherit;
+    height: inherit;
+    border-radius: 10px;
+    object-fit: cover;
+}
+
+.card .card_title {
+    text-align: center;
+    border-radius: 0px 0px 10px 10px;
+    font-family: sans-serif;
+    font-weight: bold;
+    font-size: 11px;
+    margin-top: -5px;
+    height: 10px;
+    font-family: Arial, "돋움", dotum, sans-serif;
+}
+
+
+
+.card:hover {
+    transform: scale(1, 1);
+    box-shadow: 2px 2px 3px 3px rgba(153, 153, 255, 0.25),
+        2px 2px 3px 3px rgba(0, 0, 0, 0.22);
+}
+
+.title-white {
+    color: white;
+}
+
+.title-black {
+    color: black;
+}
+
+#popup a {
+    color: grey;
+    text-decoration: none;
+}
+
+#popup {
+    position: absolute;
+    left: 1%;
+    top: 485px;
+    transform: translate((-50%, -50%));
+    box-shadow: 0 0 10px;
+    padding: 20px;
+    box-sizing: border-box;
+    background-color: #f5f5f5;
+}
+
+.pop_img {
+    height: auto;
+    width: 150px;
+    display: none
+}
+
+.inner tr td td div:hover img {
+    display: block;
+}
+
+#my_button {
+    background-color: #008CBA;
+    /* Green */
+    border: none;
+    color: white;
+    padding: 5px 5px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 12px;
+    margin: 1px 2px;
+    -webkit-transition-duration: 0.4s;
+    /* Safari */
+    transition-duration: 0.4s;
+    cursor: pointer;
+}
+
+#my_button {
+    background-color: white;
+    color: #008CBA;
+    border: 2px solid #008CBA;
+}
+
+#my_button:hover {
+    background-color: #008CBA;
+    color: white;
+}
+
+
+#input_submit {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+
+    background: var(--button-bg-color);
+    color: var(--button-color);
+
+    margin: 0;
+    /* padding: 0.5rem 1rem; */
+
+    font-family: 'Noto Sans KR', sans-serif;
+    font-size: 0.84rem;
+    font-weight: 1000;
+    text-align: center;
+    text-decoration: none;
+
+    border: none;
+    border-radius: 3px;
+
+    display: inline-block;
+    width: auto;
+
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+
+    cursor: pointer;
+
+    transition: 0.5s;
+}
+
+#input_submit.success {
+    --button-bg-color: #28a745;
+    --button-hover-bg-color: #218838;
+}
+
+#input_submit.error {
+    --button-bg-color: #dc3545;
+    --button-hover-bg-color: #c82333;
+}
+
+#input_submit.warning {
+    --button-color: #212529;
+    --button-bg-color: #ffc107;
+    --button-hover-bg-color: #e0a800;
+}
+
+#input_submit:active,
+#input_submit:hover,
+#input_submit:focus {
+    background: var(--button-hover-bg-color);
+    outline: 0;
+}
+
+#input_submit:disabled {
+    opacity: 0.5;
+}
+
+.container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: stretch;
+    width: 100%;
+    height: 100vh;
+}
+
+.iframe-container {
+    flex: 1;
+    height: 100%;
+}
+
+.iframe-container iframe {
+    width: 100%;
+    height: 100%;
+    border: none;
+}

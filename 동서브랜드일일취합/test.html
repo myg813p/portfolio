@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>동서가구 브랜드 판매</title>
+    <link href="index9.css" rel="stylesheet" type="text/css" />
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+</head>
+
+<body>
+    <script>
+        //데이터 들고오기 메인데이터
+        var url = "brand.csv"
+        axios
+            .get(url)
+            .then(function (result) {
+                var my_str = result.data;
+                var tableData = my_str.split('\n')
+
+                for (var i = 0; i < tableData.length; i++) {
+                    tableData[i] = tableData[i].split(',')
+                }
+                tableData = tableData.slice(0, -1);
+                    console.log(tableData[0]);
+                
+                tableData.map((elem) => {
+                    if (elem[0] == "2022-10-17"){
+                        console.log(elem);
+                    }
+                });
+                
+                var temp = []
+                tableData.map((elem) => {
+                    
+                })
+            });
+
+    </script>
+
+</body>
+
+</html>
